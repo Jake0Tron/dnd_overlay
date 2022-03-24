@@ -1,0 +1,16 @@
+.statblock {
+  border: 1px solid black;
+  padding: 1rem 4rem;
+}
+
+.title {
+  font-size: larger;
+}
+
+.modifier {
+  font-size: large;
+}
+
+.value {
+  font-size: medium;
+}
