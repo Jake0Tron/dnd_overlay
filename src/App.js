@@ -8,6 +8,7 @@ const DEFAULT_STATS = {
     health: {
       maxHealth: 52,
       currentHealth: 22,
+      tempHealth: 0
     },
     stats: {
       STR: 7,
@@ -19,36 +20,50 @@ const DEFAULT_STATS = {
     }
 }
 
+const LOCAL_STORAGE_KEY = 'dnd-stats';
 
 function App() {
 
   const [statBlock, setStatBlock] = React.useState(DEFAULT_STATS.stats);
-  const [currentHealth, setCurrentHealth] = React.useState(DEFAULT_STATS.health);
+  const [healthStats, setCurrentHealthStats] = React.useState(DEFAULT_STATS.health);
 
   React.useEffect(() => {
     // TODO PULL STATS FROM STORAGE?
-    
+    const storedStats = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (storedStats != null){
+      const {stats, health} = storedStats;
+      setStatBlock(stats);
+      setCurrentHealthStats(health)
+    }
   }, []);
 
-  const _onHealthChange = (val) => {
-    setCurrentHealth(val);
+  const _onHealthChange = (health) => {
+    setCurrentHealthStats(health);
+    saveStatsToLocalStorage({health, stats: statBlock});
   }
 
   const _onStatChange = (stats) => {
     setStatBlock(stats);
+    saveStatsToLocalStorage({stats, health: healthStats});
+  }
+
+  const saveStatsToLocalStorage = (allStats) => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allStats))
   }
 
   return (
     <div className="App">
-      <CharacterName 
-        name="Garth"
-        subtitle="Sneak and poke"
-      />
-      <StatBar 
-        statMap={statBlock}
-        setStat={_onStatChange}
-      />
-      <HealthBar stats={currentHealth} setHealth={_onHealthChange}/>
+      <div>
+        <CharacterName 
+          name="Garth"
+          subtitle="Sneak and poke"
+        />
+        <StatBar 
+          statMap={statBlock}
+          setStat={_onStatChange}
+        />
+        <HealthBar stats={healthStats} setHealth={_onHealthChange}/>
+      </div>
     </div>
   );
 }

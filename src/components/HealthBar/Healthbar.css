@@ -4,3 +4,29 @@ progress {
   width: 100%;
   height: 15px;
 }
+
+.healthBarContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.healthControls {
+  display: flex;
+  border: 1px solid black;
+  margin: 0.5rem;
+}
+
+.healthControl {
+  padding: 0.5rem;
+}
+
+.healthbar {
+  width: 100%;
+}
+.health {
+  background-color: green;
+}
+.tempHealth {
+  background-color: greenyellow;
+}

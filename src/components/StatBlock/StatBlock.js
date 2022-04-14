@@ -23,7 +23,7 @@ const StatBlock = ({
   }
 
   return (
-  <div>
+  <div className='statBlockContainer'>
     <div className='statblock'>
       <h2>{title.toUpperCase()}</h2>
       <h1>{statModifier}</h1>
